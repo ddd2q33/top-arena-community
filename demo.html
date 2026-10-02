@@ -1,0 +1,1684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>The Arena Community — Top Arena</title>
+
+  <meta
+    name="description"
+    content="The Arena is a community for players who want to learn strategies, improve their gameplay and compete."
+  >
+
+  <style>
+    :root {
+      --bg: #0b0d12;
+      --bg-soft: #11141b;
+      --panel: #151922;
+      --panel-hover: #1b202b;
+      --border: #272d39;
+      --text: #f4f5f7;
+      --muted: #8d95a5;
+      --accent: #7c5cff;
+      --accent-2: #5de1c4;
+      --danger: #ff647c;
+      --warning: #ffca5c;
+      --radius: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family:
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+      cursor: pointer;
+    }
+
+    /* =========================
+       HEADER
+    ========================= */
+
+    header {
+      height: 72px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(11, 13, 18, 0.92);
+      backdrop-filter: blur(14px);
+
+      display: flex;
+      align-items: center;
+
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-inner {
+      width: min(1280px, calc(100% - 40px));
+      margin: auto;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    .logo-mark {
+      width: 38px;
+      height: 38px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 12px;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--accent),
+          #a88cff
+        );
+
+      color: white;
+      font-weight: 900;
+    }
+
+    .logo span {
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+    }
+
+    nav a {
+      color: var(--muted);
+      font-size: 14px;
+      transition: 0.2s;
+    }
+
+    nav a:hover {
+      color: white;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn {
+      border: 1px solid var(--border);
+      background: var(--panel);
+      color: white;
+
+      padding: 10px 16px;
+      border-radius: 10px;
+
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .btn:hover {
+      background: var(--panel-hover);
+    }
+
+    .btn-primary {
+      border: none;
+      background: var(--accent);
+    }
+
+    .btn-primary:hover {
+      background: #8d71ff;
+    }
+
+    /* =========================
+       HERO
+    ========================= */
+
+    .hero {
+      width: min(1280px, calc(100% - 40px));
+      margin: auto;
+
+      padding: 80px 0 60px;
+
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 60px;
+
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+
+      padding: 7px 11px;
+
+      border: 1px solid var(--border);
+      border-radius: 999px;
+
+      color: var(--accent-2);
+      background: rgba(93, 225, 196, 0.05);
+
+      font-size: 12px;
+      font-weight: 700;
+
+      margin-bottom: 22px;
+    }
+
+    .hero h1 {
+      font-size: clamp(44px, 6vw, 76px);
+      line-height: 0.98;
+      letter-spacing: -3px;
+      max-width: 720px;
+    }
+
+    .hero h1 span {
+      color: var(--accent);
+    }
+
+    .hero-description {
+      max-width: 600px;
+
+      margin-top: 24px;
+
+      color: var(--muted);
+
+      font-size: 18px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+
+      margin-top: 32px;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 35px;
+
+      margin-top: 38px;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 24px;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    /* =========================
+       ARENA VISUAL
+    ========================= */
+
+    .arena-card {
+      position: relative;
+
+      min-height: 430px;
+
+      border: 1px solid var(--border);
+      border-radius: 28px;
+
+      overflow: hidden;
+
+      background:
+        radial-gradient(
+          circle at 30% 20%,
+          rgba(124, 92, 255, 0.25),
+          transparent 35%
+        ),
+        radial-gradient(
+          circle at 80% 80%,
+          rgba(93, 225, 196, 0.12),
+          transparent 30%
+        ),
+        var(--panel);
+    }
+
+    .arena-grid {
+      position: absolute;
+      inset: 0;
+
+      background-image:
+        linear-gradient(
+          rgba(255,255,255,0.03) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          90deg,
+          rgba(255,255,255,0.03) 1px,
+          transparent 1px
+        );
+
+      background-size: 45px 45px;
+    }
+
+    .arena-center {
+      position: absolute;
+
+      top: 50%;
+      left: 50%;
+
+      transform: translate(-50%, -50%);
+
+      width: 170px;
+      height: 170px;
+
+      border-radius: 50%;
+
+      border: 1px solid rgba(255,255,255,0.12);
+
+      display: grid;
+      place-items: center;
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(124, 92, 255, 0.30),
+          rgba(124, 92, 255, 0.04)
+        );
+    }
+
+    .arena-symbol {
+      width: 90px;
+      height: 90px;
+
+      border-radius: 26px;
+
+      display: grid;
+      place-items: center;
+
+      background: var(--accent);
+
+      font-size: 38px;
+      font-weight: 900;
+
+      transform: rotate(-8deg);
+
+      box-shadow:
+        0 20px 60px rgba(124, 92, 255, 0.35);
+    }
+
+    .floating-card {
+      position: absolute;
+
+      width: 150px;
+
+      padding: 15px;
+
+      border-radius: 15px;
+
+      background: rgba(21, 25, 34, 0.92);
+
+      border: 1px solid var(--border);
+
+      backdrop-filter: blur(10px);
+    }
+
+    .floating-card strong {
+      display: block;
+      font-size: 13px;
+    }
+
+    .floating-card small {
+      display: block;
+
+      color: var(--muted);
+
+      font-size: 11px;
+
+      margin-top: 4px;
+    }
+
+    .card-1 {
+      top: 45px;
+      left: 35px;
+    }
+
+    .card-2 {
+      right: 30px;
+      top: 110px;
+    }
+
+    .card-3 {
+      bottom: 40px;
+      left: 60px;
+    }
+
+    /* =========================
+       MAIN
+    ========================= */
+
+    main {
+      width: min(1280px, calc(100% - 40px));
+      margin: auto;
+    }
+
+    section {
+      padding: 55px 0;
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+
+      margin-bottom: 25px;
+    }
+
+    .section-heading h2 {
+      font-size: 28px;
+      letter-spacing: -1px;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+      font-size: 14px;
+      max-width: 450px;
+    }
+
+    /* =========================
+       COMMUNITY CHANNELS
+    ========================= */
+
+    .channels {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .channel {
+      padding: 24px;
+
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+
+      background: var(--panel);
+
+      transition: 0.2s;
+    }
+
+    .channel:hover {
+      transform: translateY(-3px);
+      background: var(--panel-hover);
+    }
+
+    .channel-icon {
+      width: 42px;
+      height: 42px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 12px;
+
+      background: rgba(124, 92, 255, 0.12);
+
+      margin-bottom: 18px;
+
+      font-size: 19px;
+    }
+
+    .channel h3 {
+      font-size: 16px;
+      margin-bottom: 7px;
+    }
+
+    .channel p {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* =========================
+       FEED
+    ========================= */
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 0.7fr;
+      gap: 20px;
+    }
+
+    .feed {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .post {
+      padding: 20px;
+
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+
+      background: var(--panel);
+    }
+
+    .post-top {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .avatar {
+      width: 40px;
+      height: 40px;
+
+      border-radius: 50%;
+
+      display: grid;
+      place-items: center;
+
+      background: #252b38;
+
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .post-user strong {
+      display: block;
+      font-size: 13px;
+    }
+
+    .post-user span {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .post-content {
+      margin-top: 15px;
+
+      font-size: 14px;
+
+      color: #dfe2e8;
+    }
+
+    .post-tags {
+      display: flex;
+      gap: 7px;
+
+      margin-top: 15px;
+    }
+
+    .tag {
+      padding: 5px 8px;
+
+      border-radius: 7px;
+
+      background: #202530;
+
+      color: var(--muted);
+
+      font-size: 10px;
+    }
+
+    .post-actions {
+      display: flex;
+      gap: 18px;
+
+      margin-top: 18px;
+
+      color: var(--muted);
+
+      font-size: 12px;
+    }
+
+    /* =========================
+       SIDEBAR
+    ========================= */
+
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .side-card {
+      padding: 20px;
+
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+
+      background: var(--panel);
+    }
+
+    .side-card h3 {
+      font-size: 15px;
+      margin-bottom: 15px;
+    }
+
+    .player {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      padding: 10px 0;
+
+      border-bottom: 1px solid var(--border);
+    }
+
+    .player:last-child {
+      border-bottom: none;
+    }
+
+    .player-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .player-avatar {
+      width: 32px;
+      height: 32px;
+
+      border-radius: 9px;
+
+      display: grid;
+      place-items: center;
+
+      background: #242a36;
+
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    .player-name {
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .player-status {
+      color: var(--accent-2);
+      font-size: 10px;
+    }
+
+    /* =========================
+       STRATEGIES
+    ========================= */
+
+    .strategies {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .strategy {
+      min-height: 210px;
+
+      padding: 24px;
+
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+
+      background: var(--panel);
+
+      position: relative;
+
+      overflow: hidden;
+    }
+
+    .strategy-number {
+      color: var(--accent);
+
+      font-size: 12px;
+      font-weight: 800;
+
+      margin-bottom: 35px;
+    }
+
+    .strategy h3 {
+      font-size: 19px;
+
+      margin-bottom: 8px;
+    }
+
+    .strategy p {
+      color: var(--muted);
+
+      font-size: 13px;
+    }
+
+    .strategy::after {
+      content: "";
+
+      position: absolute;
+
+      width: 100px;
+      height: 100px;
+
+      right: -30px;
+      bottom: -30px;
+
+      border-radius: 50%;
+
+      background: rgba(124, 92, 255, 0.07);
+    }
+
+    /* =========================
+       BOOK
+    ========================= */
+
+    .book-section {
+      margin: 55px 0;
+
+      padding: 50px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 28px;
+
+      background:
+        linear-gradient(
+          120deg,
+          rgba(124, 92, 255, 0.12),
+          transparent 60%
+        ),
+        var(--panel);
+
+      display: grid;
+      grid-template-columns: 1fr 0.8fr;
+      gap: 50px;
+
+      align-items: center;
+    }
+
+    .book-section h2 {
+      font-size: 38px;
+      line-height: 1.05;
+
+      letter-spacing: -1.5px;
+    }
+
+    .book-section p {
+      color: var(--muted);
+
+      margin-top: 15px;
+
+      max-width: 550px;
+    }
+
+    .book-cover {
+      width: 220px;
+      height: 300px;
+
+      margin: auto;
+
+      border-radius: 8px;
+
+      border: 1px solid rgba(255,255,255,0.15);
+
+      background:
+        linear-gradient(
+          145deg,
+          #202636,
+          #11141b
+        );
+
+      box-shadow:
+        20px 25px 60px rgba(0,0,0,0.45);
+
+      padding: 25px;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .book-cover small {
+      color: var(--accent-2);
+
+      font-size: 9px;
+
+      font-weight: 800;
+
+      letter-spacing: 2px;
+    }
+
+    .book-cover h3 {
+      font-size: 30px;
+
+      line-height: 0.95;
+    }
+
+    .book-cover span {
+      color: var(--muted);
+
+      font-size: 10px;
+    }
+
+    /* =========================
+       CTA
+    ========================= */
+
+    .cta {
+      text-align: center;
+
+      padding: 80px 20px;
+    }
+
+    .cta h2 {
+      font-size: 42px;
+
+      letter-spacing: -2px;
+    }
+
+    .cta p {
+      color: var(--muted);
+
+      max-width: 520px;
+
+      margin: 15px auto 25px;
+    }
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    footer {
+      border-top: 1px solid var(--border);
+
+      padding: 30px 0;
+
+      color: var(--muted);
+
+      font-size: 12px;
+    }
+
+    .footer-inner {
+      width: min(1280px, calc(100% - 40px));
+
+      margin: auto;
+
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* =========================
+       RESPONSIVE
+    ========================= */
+
+    @media (max-width: 950px) {
+
+      nav {
+        display: none;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .channels {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .strategies {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .book-section {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+
+      .header-actions .btn:first-child {
+        display: none;
+      }
+
+      .hero {
+        padding-top: 50px;
+      }
+
+      .hero h1 {
+        font-size: 48px;
+      }
+
+      .hero-description {
+        font-size: 16px;
+      }
+
+      .hero-stats {
+        gap: 20px;
+      }
+
+      .channels,
+      .strategies {
+        grid-template-columns: 1fr;
+      }
+
+      .book-section {
+        padding: 30px;
+      }
+
+      .book-section h2 {
+        font-size: 30px;
+      }
+
+      .cta h2 {
+        font-size: 32px;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- =========================
+       HEADER
+  ========================== -->
+
+  <header>
+
+    <div class="header-inner">
+
+      <a href="#" class="logo">
+
+        <div class="logo-mark">
+          TA
+        </div>
+
+        <div>
+          Top Arena
+          <span>Community</span>
+        </div>
+
+      </a>
+
+      <nav>
+
+        <a href="#community">Community</a>
+        <a href="#strategies">Strategies</a>
+        <a href="#players">Players</a>
+        <a href="#book">Book</a>
+
+      </nav>
+
+      <div class="header-actions">
+
+        <button class="btn">
+          Log in
+        </button>
+
+        <button class="btn btn-primary">
+          Join Free
+        </button>
+
+      </div>
+
+    </div>
+
+  </header>
+
+
+  <!-- =========================
+       HERO
+  ========================== -->
+
+  <section class="hero">
+
+    <div>
+
+      <div class="eyebrow">
+        ● THE ARENA COMMUNITY
+      </div>
+
+      <h1>
+        Play smarter.
+        <span>Improve faster.</span>
+      </h1>
+
+      <p class="hero-description">
+        A community built around strategy, competition and continuous
+        improvement. Learn new tactics, discuss battles and connect
+        with players who want to get better.
+      </p>
+
+      <div class="hero-actions">
+
+        <button class="btn btn-primary">
+          Join The Community
+        </button>
+
+        <button class="btn">
+          Explore Strategies
+        </button>
+
+      </div>
+
+      <div class="hero-stats">
+
+        <div class="stat">
+          <strong>2.4K</strong>
+          <span>Members</span>
+        </div>
+
+        <div class="stat">
+          <strong>180+</strong>
+          <span>Strategies</span>
+        </div>
+
+        <div class="stat">
+          <strong>420</strong>
+          <span>Active Players</span>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- ORIGINAL ABSTRACT VISUAL -->
+
+    <div class="arena-card">
+
+      <div class="arena-grid"></div>
+
+      <div class="floating-card card-1">
+        <strong>Strategy Lab</strong>
+        <small>Analyze your decisions</small>
+      </div>
+
+      <div class="floating-card card-2">
+        <strong>Find Players</strong>
+        <small>Connect and compete</small>
+      </div>
+
+      <div class="floating-card card-3">
+        <strong>Weekly Challenge</strong>
+        <small>New challenge available</small>
+      </div>
+
+      <div class="arena-center">
+
+        <div class="arena-symbol">
+          A
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <main>
+
+    <!-- =========================
+         COMMUNITY CHANNELS
+    ========================== -->
+
+    <section id="community">
+
+      <div class="section-heading">
+
+        <div>
+          <h2>Inside The Arena</h2>
+        </div>
+
+        <p>
+          Everything you need to learn, discuss, compete and improve.
+        </p>
+
+      </div>
+
+      <div class="channels">
+
+        <a href="#" class="channel">
+
+          <div class="channel-icon">
+            💬
+          </div>
+
+          <h3>General Chat</h3>
+
+          <p>
+            Talk with other members and share ideas.
+          </p>
+
+        </a>
+
+
+        <a href="#" class="channel">
+
+          <div class="channel-icon">
+            ⚔
+          </div>
+
+          <h3>Find A Player</h3>
+
+          <p>
+            Find people to play friendly matches and challenges.
+          </p>
+
+        </a>
+
+
+        <a href="#" class="channel">
+
+          <div class="channel-icon">
+            ◈
+          </div>
+
+          <h3>Strategy Lab</h3>
+
+          <p>
+            Discuss tactics, decisions and battle situations.
+          </p>
+
+        </a>
+
+
+        <a href="#" class="channel">
+
+          <div class="channel-icon">
+            ★
+          </div>
+
+          <h3>Weekly Challenges</h3>
+
+          <p>
+            Participate in community challenges and events.
+          </p>
+
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         COMMUNITY FEED
+    ========================== -->
+
+    <section>
+
+      <div class="section-heading">
+
+        <div>
+          <h2>Community Activity</h2>
+        </div>
+
+        <p>
+          See what players are discussing right now.
+        </p>
+
+      </div>
+
+
+      <div class="content-grid">
+
+        <div class="feed">
+
+          <article class="post">
+
+            <div class="post-top">
+
+              <div class="avatar">
+                MK
+              </div>
+
+              <div class="post-user">
+
+                <strong>MasterKai</strong>
+
+                <span>
+                  12 minutes ago
+                </span>
+
+              </div>
+
+            </div>
+
+            <div class="post-content">
+
+              I started focusing on defensive timing instead of
+              attacking immediately. The difference in my matches
+              has been huge.
+
+            </div>
+
+            <div class="post-tags">
+
+              <span class="tag">
+                Strategy
+              </span>
+
+              <span class="tag">
+                Discussion
+              </span>
+
+            </div>
+
+            <div class="post-actions">
+
+              <span>
+                24 Likes
+              </span>
+
+              <span>
+                8 Comments
+              </span>
+
+            </div>
+
+          </article>
+
+
+          <article class="post">
+
+            <div class="post-top">
+
+              <div class="avatar">
+                AL
+              </div>
+
+              <div class="post-user">
+
+                <strong>ArenaLearner</strong>
+
+                <span>
+                  31 minutes ago
+                </span>
+
+              </div>
+
+            </div>
+
+            <div class="post-content">
+
+              What do you think is more important when learning a
+              new deck: understanding the cards or understanding
+              the matchups?
+
+            </div>
+
+            <div class="post-tags">
+
+              <span class="tag">
+                Question
+              </span>
+
+              <span class="tag">
+                Deck Building
+              </span>
+
+            </div>
+
+            <div class="post-actions">
+
+              <span>
+                18 Likes
+              </span>
+
+              <span>
+                14 Comments
+              </span>
+
+            </div>
+
+          </article>
+
+
+          <article class="post">
+
+            <div class="post-top">
+
+              <div class="avatar">
+                RX
+              </div>
+
+              <div class="post-user">
+
+                <strong>RexPlayer</strong>
+
+                <span>
+                  1 hour ago
+                </span>
+
+              </div>
+
+            </div>
+
+            <div class="post-content">
+
+              New weekly challenge idea:
+              win a match without making the first offensive move.
+
+            </div>
+
+            <div class="post-tags">
+
+              <span class="tag">
+                Challenge
+              </span>
+
+            </div>
+
+            <div class="post-actions">
+
+              <span>
+                31 Likes
+              </span>
+
+              <span>
+                11 Comments
+              </span>
+
+            </div>
+
+          </article>
+
+        </div>
+
+
+        <!-- =========================
+             ACTIVE PLAYERS
+        ========================== -->
+
+        <aside class="sidebar" id="players">
+
+          <div class="side-card">
+
+            <h3>
+              Players Online
+            </h3>
+
+            <div class="player">
+
+              <div class="player-left">
+
+                <div class="player-avatar">
+                  JD
+                </div>
+
+                <div>
+                  <div class="player-name">
+                    Jaden
+                  </div>
+
+                  <div class="player-status">
+                    ● Online
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <div class="player">
+
+              <div class="player-left">
+
+                <div class="player-avatar">
+                  AR
+                </div>
+
+                <div>
+                  <div class="player-name">
+                    ArenaRay
+                  </div>
+
+                  <div class="player-status">
+                    ● Online
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <div class="player">
+
+              <div class="player-left">
+
+                <div class="player-avatar">
+                  VX
+                </div>
+
+                <div>
+                  <div class="player-name">
+                    Vex
+                  </div>
+
+                  <div class="player-status">
+                    ● Online
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="side-card">
+
+            <h3>
+              Upcoming Event
+            </h3>
+
+            <strong>
+              Weekly Strategy Challenge
+            </strong>
+
+            <p style="
+              color: var(--muted);
+              font-size: 12px;
+              margin-top: 8px;
+            ">
+              Starts Friday
+            </p>
+
+            <button
+              class="btn btn-primary"
+              style="
+                width:100%;
+                margin-top:15px;
+              "
+            >
+              View Challenge
+            </button>
+
+          </div>
+
+        </aside>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         STRATEGIES
+    ========================== -->
+
+    <section id="strategies">
+
+      <div class="section-heading">
+
+        <div>
+          <h2>Strategy Library</h2>
+        </div>
+
+        <p>
+          Learn principles that help you make better decisions
+          during competitive matches.
+        </p>
+
+      </div>
+
+
+      <div class="strategies">
+
+        <article class="strategy">
+
+          <div class="strategy-number">
+            STRATEGY #01
+          </div>
+
+          <h3>
+            Reading The Arena
+          </h3>
+
+          <p>
+            Learn how to observe the battlefield before committing
+            resources.
+          </p>
+
+        </article>
+
+
+        <article class="strategy">
+
+          <div class="strategy-number">
+            STRATEGY #02
+          </div>
+
+          <h3>
+            Identify The Weak Lane
+          </h3>
+
+          <p>
+            Find where your opponent has fewer defensive options.
+          </p>
+
+        </article>
+
+
+        <article class="strategy">
+
+          <div class="strategy-number">
+            STRATEGY #03
+          </div>
+
+          <h3>
+            Control The Pace
+          </h3>
+
+          <p>
+            Learn when to slow the battle down and when to apply
+            pressure.
+          </p>
+
+        </article>
+
+
+        <article class="strategy">
+
+          <div class="strategy-number">
+            STRATEGY #04
+          </div>
+
+          <h3>
+            Positive Trades
+          </h3>
+
+          <p>
+            Create situations where your resources generate more
+            value than your opponent's.
+          </p>
+
+        </article>
+
+
+        <article class="strategy">
+
+          <div class="strategy-number">
+            STRATEGY #05
+          </div>
+
+          <h3>
+            Defense Creates Offense
+          </h3>
+
+          <p>
+            Turn successful defensive decisions into opportunities.
+          </p>
+
+        </article>
+
+
+        <article class="strategy">
+
+          <div class="strategy-number">
+            STRATEGY #06
+          </div>
+
+          <h3>
+            Punish Overcommitment
+          </h3>
+
+          <p>
+            Recognize when an opponent spends too many resources.
+          </p>
+
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         BOOK
+    ========================== -->
+
+    <section id="book">
+
+      <div class="book-section">
+
+        <div>
+
+          <div class="eyebrow">
+            THE ARENA LIBRARY
+          </div>
+
+          <h2>
+            100 Clash Strategies
+          </h2>
+
+          <p>
+            A visual guide built around practical decision-making,
+            battlefield awareness, resource management, defense,
+            attack strategy and competitive mindset.
+          </p>
+
+          <div style="margin-top:25px;">
+
+            <button class="btn btn-primary">
+              Explore The Book
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div>
+
+          <div class="book-cover">
+
+            <small>
+              TOP ARENA
+            </small>
+
+            <h3>
+              100<br>
+              CLASH<br>
+              STRATEGIES
+            </h3>
+
+            <span>
+              A COMPLETE VISUAL GUIDE
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         FINAL CTA
+    ========================== -->
+
+    <section class="cta">
+
+      <h2>
+        Enter The Arena.
+      </h2>
+
+      <p>
+        Learn better strategies, meet other players and turn
+        every battle into an opportunity to improve.
+      </p>
+
+      <button class="btn btn-primary">
+        Join The Community
+      </button>
+
+    </section>
+
+  </main>
+
+
+  <!-- =========================
+       FOOTER
+  ========================== -->
+
+  <footer>
+
+    <div class="footer-inner">
+
+      <div>
+        © 2026 Top Arena
+      </div>
+
+      <div>
+        Independent gaming strategy community
+      </div>
+
+    </div>
+
+  </footer>
+
+</body>
+</html>
